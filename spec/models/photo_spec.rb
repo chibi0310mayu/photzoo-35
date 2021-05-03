@@ -115,5 +115,4 @@ RSpec.describe Photo, type: :model do
       end
     end
   end
-
 end
