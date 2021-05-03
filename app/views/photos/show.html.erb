@@ -1,0 +1,106 @@
+<%= render "devise/shared/header" %>
+
+<%# 商品の概要 %>
+<div class="item-show">
+  <div class="item-box">
+    <h2 class="name">
+      <%= @photo.name %>
+    </h2>
+    <div class="item-img-content">
+      <%= image_tag @photo.image ,class:"item-box-img" %>
+      <% if @photo.purchase.present? %>
+      <div class="sold-out">
+        <span>Sold Out!!</span>
+      </div>
+      <% end %>
+    </div>
+    <div class="item-price-box">
+      <span class="item-price">
+        <%= @photo.price %>
+      </span>
+      <span class="item-postage">
+        <%= @photo.burden.name %>
+      </span>
+    </div>
+
+    <% if user_signed_in? && @photo.purchase.blank?%>
+     <% if current_user.id == @photo.user_id %>
+    <%= link_to "商品の編集", edit_photo_path(@photo.id), method: :get, class: "item-red-btn" %>
+    <p class="or-text">or</p>
+    <%= link_to "削除", photo_path(@photo.id), method: :delete, class:"item-destroy" %>
+    <% else %>
+    <%= link_to "購入画面に進む", photo_purchases_path(@photo.id) ,class:"item-red-btn"%>
+    <% end %>
+    <% end %>
+
+
+    <div class="item-explain-box">
+      <span><%= @photo.explanation %></span>
+    </div>
+    <table class="detail-table">
+      <tbody>
+        <tr>
+          <th class="detail-item">出品者</th>
+          <td class="detail-value"><%= @photo.user.nickname %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">動物園の地域</th>
+          <td class="detail-value"><%= @photo.area.name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">動物の種類</th>
+          <td class="detail-value"><%= @photo.condition.name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">配送料の負担</th>
+          <td class="detail-value"><%= @photo.burden.name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">発送元の地域</th>
+          <td class="detail-value"><%= @photo.area.name %></td>
+        </tr>
+        <tr>
+          <th class="detail-item">発送日の目安</th>
+          <td class="detail-value"><%= @photo.shipping.name %></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="option">
+      <div class="favorite-btn">
+        <%= image_tag "star.png" ,class:"favorite-star-icon" ,width:"20",height:"20"%>
+        <span>お気に入り 0</span>
+      </div>
+      <div class="report-btn">
+        <%= image_tag "flag.png" ,class:"report-flag-icon" ,width:"20",height:"20"%>
+        <span>不適切な商品の通報</span>
+      </div>
+    </div>
+  </div>
+  <%# /商品の概要 %>
+
+  <div class="comment-box">
+    <form>
+      <textarea class="comment-text"></textarea>
+      <p class="comment-warn">
+        相手のことを考え丁寧なコメントを心がけましょう。
+        <br>
+        不快な言葉遣いなどは利用制限や退会処分となることがあります。
+      </p>
+      <button type="submit" class="comment-btn">
+        <%= image_tag "comment.png" ,class:"comment-flag-icon" ,width:"20",height:"25"%>
+        <span>コメントする<span>
+      </button>
+    </form>
+  </div>
+  <div class="links">
+    <a href="#" class="change-item-btn">
+      ＜ 前の商品
+    </a>
+    <a href="#" class="change-item-btn">
+      後ろの商品 ＞
+    </a>
+  </div>
+  <a href="#" class="another-item"><%= @photo.area.name %>をもっと見る</a>
+</div>
+
+<%= render "devise/shared/footer" %>

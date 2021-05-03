@@ -1,0 +1,105 @@
+<%= render "devise/shared/header" %>
+<div class='main'>
+ <div class='earch-bar-contents'>
+ PhotZoo
+</div>
+
+  <%# 画面上部の%>
+  <div class='title-contents'>
+    <h2 class='service-title'>
+      大好きな動物の写真が手に入る
+    </h2>
+    <p class='service-explain'>
+      遠くてなかなか会えない子の写真を手に入れる
+    </p>
+    <p class='service-explain'>
+      写真のフリマアプリです
+    </p>
+    <div class='store-btn'>
+    </div>
+  </div>
+  <%# /画面上部の帯部分  %>
+
+
+  <%# 画面中央帯部分 %>
+  <div class='ad-contents'>
+    <h2 class='ad-title'>
+      自分の推しの動物が遠くの動物園へ行ってしまった
+    </h2>
+    <p class='ad-explain'>
+      せめて可愛い写真でも欲しい！！
+    </p>
+    <p class='ad-explain'>
+      そんなあなたにピッタリ
+    </p>
+    <p class='ad-explain'>
+      会いたいあの子の写真があるかも！？
+    </p>
+    <div class='store-btn'>
+    </div>
+  </div>
+  <%# /画面中央帯部分 %>
+
+
+  <%# 商品一覧 %>
+  <div class='item-contents'>
+    <h2 class='title'>動物たちの写真一覧</h2>
+    <%= link_to '新規投稿写真', "#", class: "subtitle" %>
+    <ul class='item-lists'>
+
+      <% @photos.each do |photo| %>
+      <li class='list'>
+        <%= link_to photo_path(photo.id) do %>
+        <div class='item-img-content'>
+          <%= image_tag photo.image, class: "item-img" %>
+
+          <% if photo.purchase.present? %>
+          <div class='sold-out'>
+            <span>Sold Out!!</span>
+          </div>
+          <% end %>
+
+        </div>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            <%= photo.name %>
+          </h3>
+          <div class='item-price'>
+            <span><%= photo.price %>円<br><%= photo.burden.name %></span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <% end%>
+      </li>
+       <% if @photos.length == 0%>
+      <li class='list'>
+        <%= link_to '#' do %>
+        <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            商品を出品してね！
+          </h3>
+          <div class='item-price'>
+            <span>99999999円<br>(税込み)</span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'>0</span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <%# /商品一覧 %>
+</div>
+<%= link_to(new_photo_path, class: 'purchase-btn') do %>
+  <span class='purchase-btn-text'>出品する</span>
+  <%= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
+<% end %>
+<%= render "devise/shared/footer" %>
