@@ -3,7 +3,6 @@ class PurchasesController < ApplicationController
   before_action :set_photo, only: [:index, :create]
   before_action :move_to_edit, only: [:index, :create]
 
-
   def index
     @purchase_address = PurchaseAddress.new
   end
@@ -27,8 +26,9 @@ class PurchasesController < ApplicationController
       user_id: current_user.id, photo_id: @photo.id, token: params[:token]
     )
   end
+
   def pay_photo
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @photo.price, # 商品の値段
       card: purchase_params[:token], # カードトークン
@@ -36,15 +36,11 @@ class PurchasesController < ApplicationController
     )
   end
 
-
   def set_photo
     @photo = Photo.find(params[:photo_id])
   end
 
   def move_to_edit
     redirect_to root_path if @photo.purchase.present? || current_user.id == @photo.user.id
-    
   end
- 
-
 end

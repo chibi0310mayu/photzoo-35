@@ -24,5 +24,4 @@ class Photo < ApplicationRecord
     validates :area_id
     validates :shipping_id
   end
-
 end

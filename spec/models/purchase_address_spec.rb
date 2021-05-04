@@ -90,5 +90,4 @@ RSpec.describe PurchaseAddress, type: :model do
       end
     end
   end
-
 end
