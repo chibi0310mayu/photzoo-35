@@ -129,6 +129,14 @@ CVC = 123
 
 
 ## ローカルでの動作方法
+開発環境
+
+Ruby2.6.5 / Ruby on Rails６ / MySQL / GitHub / Heroku / Visual Studio Code
+terminalでcloneしたいディレクトリに移動し
+
+git clone https://github.com/chibi0310mayu/photzoo-35.git
+
+
 
 
 
